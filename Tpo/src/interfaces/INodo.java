@@ -5,5 +5,5 @@ public interface INodoGrafo<T> {
     void agregarVecino(INodoGrafo<T> nodo);
     void eliminarVecino(INodoGrafo<T> nodo);
 
-    java.util.List<INodoGrafo<T>> getVecinos()
+    java.util.List<INodoGrafo<T>>getVecinos()
 }
