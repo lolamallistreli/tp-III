@@ -78,7 +78,7 @@ public class TestGrafo {
             System.out.println("     " + Arrays.toString(fila));
         }
 
-System.out.println("\nExplicacion: Para que el grafo sea dirigido, se indica 'true' al crearlo");
+System.out.println("\nExplicacion Final: Para que el grafo sea dirigido, se indica 'true' al crearlo");
 System.out.println("En ese caso, las aristas tienen un solo sentido y la matriz no es simetrica");
 System.out.println("Los recorridos DFS y BFS se pueden hacer igual, respetando la direccion de las conexiones");
 }
