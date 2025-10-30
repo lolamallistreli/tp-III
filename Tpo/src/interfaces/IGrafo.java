@@ -4,24 +4,19 @@ import java.util.*;
 
 public interface IGrafo<T> {
 
-
     void agregarNodo(T dato);
 
-   
-    Map<Integer, ?> getNodos();
+    INodoGrafo<T> getNodo(T dato);
 
-  
-    void setNodos(Map<Integer, ?> nodos);
+    Map<T, INodoGrafo<T>> getNodos();
 
+    void conectar(T datoOrigen, T datoDestino);
 
-    void agregarArista(T origen, T destino);
+    List<T> recorrerBFS(T datoInicio);
 
+    
+    List<T> recorrerDFS(T datoInicio);
 
-    void bfs(int inicio);
-
- 
-    void dfs(int inicio);
-
-
-    void mostrarMatrizAdyacencia();
+    
+    int[][] obtenerMatrizAdyacencia();
 }

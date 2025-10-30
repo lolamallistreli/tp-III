@@ -1,107 +1,133 @@
 package modelo;
 import java.util.*;
-import interfaces.IGrafo; 
-import modelo.NodoGrafo;
+import interfaces.IGrafo;
+import interfaces.INodoGrafo;
 
 public class Grafo<T> implements IGrafo<T> {
-	private Map<Integer, Nodo> nodos = new HashMap<>(); 
-	
+
+	private Map<T, INodoGrafo<T>> nodos; 
+	private final boolean dirigido;
+
+	public Grafo(boolean dirigido) {
+        this.nodos = new HashMap<>();
+        this.dirigido = dirigido;
+    }
+
+
 	//getter y setter 
-	public Map<Integer, Nodo> getNodos() {
-		return nodos;
-	}
+	@Override
+    public Map<T, INodoGrafo<T>> getNodos() {
+        return nodos;
+    }
+    
+    @Override
+    public INodoGrafo<T> getNodo(T dato) {
+        return nodos.get(dato);
+    }
 
-	public void setNodos(Map<Integer, Nodo> nodos) {
-		this.nodos = nodos;
-	}
+    @Override
+    public void agregarNodo(T dato) {
+        // CORREGIDO: Ahora 'dato' (tipo T) funciona como clave.
+        if (!nodos.containsKey(dato)) {
+            // Usa la implementación 'NodoGrafo' que ya tenías.
+            nodos.put(dato, new NodoGrafo<>(dato)); 
+        }
+    }
 
-	
-	public void agregarNodo(T dato) {
-	    if (!nodos.containsKey(dato)) {
-	        nodos.put(dato, new Nodo<T>(dato));
-	    }
-	}
+    @Override
+    public void conectar(T datoOrigen, T datoDestino) {
+        INodoGrafo<T> origen = getNodo(datoOrigen);
+        INodoGrafo<T> destino = getNodo(datoDestino);
 
-	public void agregarArista(T origen, T destino) {
-	    if (nodos.containsKey(origen) && nodos.containsKey(destino)) {
-	        Nodo<T> nodoOrigen = nodos.get(origen);
-	        Nodo<T> nodoDestino = nodos.get(destino);
-	        nodoOrigen.agregarVecino(nodoDestino);
-	        nodoDestino.agregarVecino(nodoOrigen); 
-	    }
-	}
+        if (origen != null && destino != null) {
+            origen.agregarVecino(destino);
+            // Si no es dirigido, la conexión es mutua
+            if (!dirigido) {
+                destino.agregarVecino(origen);
+            }
+        }
+    }
 
-	
-	public void mostrarMatrizAdyacencia() {
-	    System.out.println("Matriz de Adyacencia:");
-	    List<Integer> claves = new ArrayList<>(nodos.keySet());
-	    Collections.sort(claves);
+    @Override
+    public int[][] obtenerMatrizAdyacencia() {
+        // Mantenemos la lógica de la matriz, pero usando T
+        List<INodoGrafo<T>> listaNodos = new ArrayList<>(nodos.values());
+        Map<INodoGrafo<T>, Integer> indiceNodos = new HashMap<>();
+        
+        for (int i = 0; i < listaNodos.size(); i++) {
+            indiceNodos.put(listaNodos.get(i), i);
+        }
 
-	    // Encabezado
-	    System.out.print("   ");
-	    for (int k : claves) System.out.print(k + " ");
-	    System.out.println();
+        int N = listaNodos.size();
+        int[][] matriz = new int[N][N];
 
-	    // Filas
-	    for (int i : claves) {
-	        System.out.print(i + ": ");
-	        Nodo<Integer> nodoI = nodos.get(i);
-	        for (int j : claves) {
-	            Nodo<Integer> nodoJ = nodos.get(j);
-	            int val = (nodoI != null && nodoJ != null && nodoI.getVecinos().contains(nodoJ)) ? 1 : 0;
-	            System.out.print(val + " ");
-	        }
-	        System.out.println();
-	    }
-	}
-	 
-	public void bfs(int inicio) {
-	    if (!nodos.containsKey(inicio)) return; // precondición
+        for (int i = 0; i < N; i++) {
+            INodoGrafo<T> nodoOrigen = listaNodos.get(i);
+            for (INodoGrafo<T> vecino : nodoOrigen.getVecinos()) {
+                if (indiceNodos.containsKey(vecino)) {
+                    int j = indiceNodos.get(vecino);
+                    matriz[i][j] = 1;
+                }
+            }
+        }
+        return matriz;
+    }
 
-	    Set<Integer> visitados = new HashSet<>();
-	    Queue<Nodo<Integer>> cola = new LinkedList<>();
+    @Override
+    public List<T> recorrerBFS(T datoInicio) {
+        List<T> resultado = new ArrayList<>();
+        INodoGrafo<T> inicio = getNodo(datoInicio);
+        if (inicio == null) return resultado;
 
-	    Nodo<Integer> nodoInicio = nodos.get(inicio);
-	    cola.add(nodoInicio);
-	    visitados.add(inicio);
+        Set<INodoGrafo<T>> visitados = new HashSet<>();
+        Queue<INodoGrafo<T>> cola = new LinkedList<>();
 
-	    System.out.println("Recorrido BFS:");
-	    while (!cola.isEmpty()) {
-	        Nodo<Integer> actual = cola.poll();
-	        System.out.print(actual.getValor() + " ");
-	        for (Nodo<Integer> vecino : actual.getVecinos()) {
-	            if (!visitados.contains(vecino.getValor())) {
-	                visitados.add(vecino.getValor());
-	                cola.add(vecino);
-	            }
-	        }
-	    }
-	    System.out.println();
-	}
-	
-	public void dfs(int inicio) {
-	    if (!nodos.containsKey(inicio)) return;
+        visitados.add(inicio);
+        cola.add(inicio);
 
-	    Set<Integer> visitados = new HashSet<>();
-	    System.out.println("Recorrido DFS:");
-	    dfsRec(nodos.get(inicio), visitados);
-	    System.out.println();
-	}
+        while (!cola.isEmpty()) {
+            INodoGrafo<T> actual = cola.poll();
+            resultado.add(actual.getDato()); // Agregamos el dato (Persona) a la lista
 
-	private void dfsRec(Nodo<Integer> actual, Set<Integer> visitados) {
-	    visitados.add(actual.getValor());
-	    System.out.print(actual.getValor() + " ");
+            for (INodoGrafo<T> vecino : actual.getVecinos()) {
+                if (!visitados.contains(vecino)) {
+                    visitados.add(vecino);
+                    cola.add(vecino);
+                }
+            }
+        }
+        return resultado;
+    }
 
-	    List<Nodo<Integer>> vecinos = actual.getVecinos();
-	    for (int i = vecinos.size() - 1; i >= 0; i--) {
-	        Nodo<Integer> vecino = vecinos.get(i);
-	        if (!visitados.contains(vecino.getValor())) {
-	            dfsRec(vecino, visitados);
-	        }
-	    }
-	}
+    @Override
+    public List<T> recorrerDFS(T datoInicio) {
+        List<T> resultado = new ArrayList<>();
+        INodoGrafo<T> inicio = getNodo(datoInicio);
+        if (inicio == null) return resultado;
 
-	
-	}
+        Set<INodoGrafo<T>> visitados = new HashSet<>();
+        Stack<INodoGrafo<T>> pila = new Stack<>();
 
+        pila.push(inicio);
 
+        while (!pila.isEmpty()) {
+            INodoGrafo<T> actual = pila.pop();
+
+            if (!visitados.contains(actual)) {
+                visitados.add(actual);
+                resultado.add(actual.getDato());
+                
+                // Invertimos el orden para un DFS iterativo estándar
+                List<INodoGrafo<T>> vecinos = new ArrayList<>(actual.getVecinos());
+                Collections.reverse(vecinos); 
+                
+                for (INodoGrafo<T> vecino : vecinos) {
+                    if (!visitados.contains(vecino)) {
+                        pila.push(vecino);
+                    }
+                }
+            }
+        }
+        return resultado;
+    }
+}
