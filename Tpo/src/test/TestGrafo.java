@@ -6,6 +6,11 @@ import java.util.List;
 import interfaces.IGrafo;
 import modelo.Grafo;
 import modelo.Persona;
+//import servicios.Dijkstra;
+import servicios.FloydWarshall;
+//import servicios.Kruskal;
+//import servicios.Prim;
+
 
 public class TestGrafo {
     public static void main(String[] args) {
@@ -70,7 +75,28 @@ public class TestGrafo {
         ///Test Matriz
         System.out.println("  3. Matriz de Adyacencia (Dirigido):");
         imprimirMatriz(grafoDirigido.obtenerMatrizAdyacencia());
-    }
+    
+        //ALGORITMOS
+        System.out.println("\n--- ALGORITMOS ---");
+        System.out.println("Algoritmo FloydWarshall sobre el grafo no dirigido:");
+        FloydWarshall.ejecutar(grafoNoDirigido);
+
+        /* 
+        System.out.println("\n--- ALGORITMOS ---");
+        System.out.println("Algoritmo Kruskal sobre el grafo no dirigido:");
+        FloydWarshall.ejecutar(grafoNoDirigido);
+
+        System.out.println("\n--- ALGORITMOS ---");
+        System.out.println("Algoritmo Prim sobre el grafo no dirigido:");
+        FloydWarshall.ejecutar(grafoNoDirigido);
+
+        System.out.println("\n--- ALGORITMOS ---");
+        System.out.println("Algoritmo Dijkstra sobre el grafo no dirigido:");
+        FloydWarshall.ejecutar(grafoNoDirigido);*/
+
+        
+
+}
     
     
     public static void imprimirMatriz(int[][] matriz) {
@@ -78,9 +104,10 @@ public class TestGrafo {
             System.out.println("     " + Arrays.toString(fila));
         }
 
-System.out.println("\nExplicacion Final: Para que el grafo sea dirigido, se indica 'true' al crearlo");
-System.out.println("En ese caso, las aristas tienen un solo sentido y la matriz no es simetrica");
-System.out.println("Los recorridos DFS y BFS se pueden hacer igual, respetando la direccion de las conexiones");
-}
+    System.out.println("\nExplicacion Final: Para que el grafo sea dirigido, se indica 'true' al crearlo");
+    System.out.println("En ese caso, las aristas tienen un solo sentido y la matriz no es simetrica");
+    System.out.println("Los recorridos DFS y BFS se pueden hacer igual, respetando la direccion de las conexiones");
 
+    
+}
 }
