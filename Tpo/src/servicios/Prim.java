@@ -4,12 +4,12 @@ import interfaces.INodoGrafo;
 import modelo.Grafo;
 import java.util.*;
 
-public class ServicioPrim<T> {
+public class Prim<T> {
 
     private final Grafo<T> grafo;
     private final Map<String, Integer> pesos; // clave: "origen-destino", valor: peso
 
-    public ServicioPrim(Grafo<T> grafo) {
+    public Prim(Grafo<T> grafo) {
         this.grafo = grafo;
         this.pesos = new HashMap<>();
     }
