@@ -9,7 +9,7 @@ import modelo.Persona;
 //import servicios.Dijkstra;
 import servicios.FloydWarshall;
 //import servicios.Kruskal;
-//import servicios.Prim;
+import servicios.Prim;
 
 
 public class TestGrafo {
