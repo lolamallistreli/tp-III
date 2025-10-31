@@ -83,7 +83,11 @@ public class TestGrafo {
 
         System.out.println("\n--- ALGORITMOS ---");
         System.out.println("Algoritmo Prim sobre el grafo no dirigido:");
-        Prim.ejecutar(grafoNoDirigido);
+        Prim<Persona> prim = new Prim<>((Grafo<Persona>)grafoNoDirigido);
+        prim.setPeso(p1, p2, 3);
+        prim.setPeso(p1, p4, 2);
+        prim.setPeso(p2, p3, 4);
+        prim.ejecutarPrim(p1);
 
         /* 
         System.out.println("\n--- ALGORITMOS ---");
