@@ -22,7 +22,6 @@ public class TestGrafo {
         Persona p4 = new Persona(103,"Cielo");
         Persona p5 = new Persona(104,"Sofia");
 
-
         //1. GRAFO NO DIRIGIDO
         System.out.println("--- GRAFO NO DIRIGIDO ---");
         
@@ -50,8 +49,7 @@ public class TestGrafo {
         System.out.println("  3. Matriz de Adyacencia (No Dirigido):");
         imprimirMatriz(grafoNoDirigido.obtenerMatrizAdyacencia());
 
-        
-        // 2. GRAFO DIRIGIDO 
+        //2. GRAFO DIRIGIDO 
         System.out.println("\n--- GRAFO DIRIGIDO ---");
         IGrafo<Persona> grafoDirigido = new Grafo<>(true); 
         
@@ -79,23 +77,21 @@ public class TestGrafo {
     
         //ALGORITMOS
         System.out.println("\n--- ALGORITMOS ---");
-        System.out.println("Algoritmo FloydWarshall sobre el grafo no dirigido:");
+        System.out.println("Algoritmo FloydWarshall sobre el grafo no dirigido:");///FloydWarshall
         FloydWarshall.ejecutar(grafoNoDirigido);
 
-        System.out.println("\n--- ALGORITMOS ---");
-        System.out.println("Algoritmo Prim sobre el grafo no dirigido:");
+        System.out.println("Algoritmo Prim sobre el grafo no dirigido:"); ///Prim
         Prim<Persona> prim = new Prim<>((Grafo<Persona>)grafoNoDirigido);
         prim.setPeso(p1, p2, 3);
         prim.setPeso(p1, p4, 2);
         prim.setPeso(p2, p3, 4);
         prim.ejecutarPrim(p1);
 
-        System.out.println("\n--- ALGORITMOS ---");
-        System.out.println("Algoritmo Kruskal sobre el grafo no dirigido:");
+        System.out.println("Algoritmo Kruskal sobre el grafo no dirigido:");///Kruskal
         Kruskal.ejecutar((Grafo<Persona>) grafoNoDirigido);
     }
 
-    
+
         /* 
         System.out.println("\n--- ALGORITMOS ---");
         System.out.println("Algoritmo Kruskal sobre el grafo no dirigido:");

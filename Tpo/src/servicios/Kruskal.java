@@ -40,7 +40,6 @@ public class Kruskal {
                 int peso = pesos.get(i);
                 int origenId = nodeToId.get(origenDato);
                 int destinoId = nodeToId.get(destinoDato);
-
                 String clave = Math.min(origenId, destinoId) + "-" + Math.max(origenId, destinoId);
 
                 if (aristasVistas.add(clave)) { 
@@ -52,16 +51,13 @@ public class Kruskal {
         ///ordena las aristas por peso
         aristas.sort(Comparator.comparingInt(a -> a.peso));
 
-        
         UnionFind uf = new UnionFind(nodos.size());
         List<Arista<T>> mst = new ArrayList<>(); 
         int costoTotal = 0;
 
-        
         for (Arista<T> arista : aristas) {
             int idOrigen = nodeToId.get(arista.origen);
             int idDestino = nodeToId.get(arista.destino);
-
             if (uf.union(idOrigen, idDestino)) {
                 mst.add(arista); 
                 costoTotal += arista.peso;
@@ -74,7 +70,6 @@ public class Kruskal {
         }
         System.out.println("Costo total del MST: " + costoTotal);
     }
-
     private static class Arista<T> {
         T origen, destino;
         int peso;
@@ -85,8 +80,6 @@ public class Kruskal {
             this.peso = p;
         }
     }
-
-    
     private static class UnionFind {
         private int[] padre;
 
@@ -96,7 +89,6 @@ public class Kruskal {
                 padre[i] = i; 
             }
         }
-
         int find(int x) {
             if (padre[x] == x) {
                 return x;
@@ -104,7 +96,6 @@ public class Kruskal {
             padre[x] = find(padre[x]); 
             return padre[x];
         }
-
         boolean union(int x, int y) {
             int raizX = find(x);
             int raizY = find(y);
