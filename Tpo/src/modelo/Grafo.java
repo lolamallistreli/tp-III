@@ -27,9 +27,9 @@ public class Grafo<T> implements IGrafo<T> {
 
     @Override
     public void agregarNodo(T dato) {
-        // CORREGIDO: Ahora 'dato' (tipo T) funciona como clave.
+        
         if (!nodos.containsKey(dato)) {
-            // Usa la implementación 'NodoGrafo' que ya tenías.
+            
             nodos.put(dato, new NodoGrafo<>(dato)); 
         }
     }
@@ -41,7 +41,7 @@ public class Grafo<T> implements IGrafo<T> {
 
         if (origen != null && destino != null) {
             origen.agregarVecino(destino);
-            // Si no es dirigido, la conexión es mutua
+            
             if (!dirigido) {
                 destino.agregarVecino(origen);
             }
@@ -50,7 +50,7 @@ public class Grafo<T> implements IGrafo<T> {
 
     @Override
     public int[][] obtenerMatrizAdyacencia() {
-        // Mantenemos la lógica de la matriz, pero usando T
+        
         List<INodoGrafo<T>> listaNodos = new ArrayList<>(nodos.values());
         Map<INodoGrafo<T>, Integer> indiceNodos = new HashMap<>();
         
@@ -87,7 +87,7 @@ public class Grafo<T> implements IGrafo<T> {
 
         while (!cola.isEmpty()) {
             INodoGrafo<T> actual = cola.poll();
-            resultado.add(actual.getDato()); // Agregamos el dato (Persona) a la lista
+            resultado.add(actual.getDato()); ///agregamos el dato (Persona)a la lista
 
             for (INodoGrafo<T> vecino : actual.getVecinos()) {
                 if (!visitados.contains(vecino)) {
@@ -117,7 +117,7 @@ public class Grafo<T> implements IGrafo<T> {
                 visitados.add(actual);
                 resultado.add(actual.getDato());
                 
-                // Invertimos el orden para un DFS iterativo estándar
+                
                 List<INodoGrafo<T>> vecinos = new ArrayList<>(actual.getVecinos());
                 Collections.reverse(vecinos); 
                 
@@ -128,6 +128,9 @@ public class Grafo<T> implements IGrafo<T> {
                 }
             }
         }
+
         return resultado;
+
+
     }
 }
