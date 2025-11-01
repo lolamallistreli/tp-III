@@ -8,6 +8,7 @@ import modelo.Grafo;
 import modelo.Persona;
 //import servicios.Dijkstra;
 import servicios.FloydWarshall;
+import servicios.Kruskal;
 //import servicios.Kruskal;
 import servicios.Prim;
 
@@ -89,6 +90,12 @@ public class TestGrafo {
         prim.setPeso(p2, p3, 4);
         prim.ejecutarPrim(p1);
 
+        System.out.println("\n--- ALGORITMOS ---");
+        System.out.println("Algoritmo Kruskal sobre el grafo no dirigido:");
+        Kruskal.ejecutar((Grafo<Persona>) grafoNoDirigido);
+    }
+
+    
         /* 
         System.out.println("\n--- ALGORITMOS ---");
         System.out.println("Algoritmo Kruskal sobre el grafo no dirigido:");
@@ -102,10 +109,6 @@ public class TestGrafo {
         FloydWarshall.ejecutar(grafoNoDirigido);*/
 
         
-
-}
-    
-    
     public static void imprimirMatriz(int[][] matriz) {
         for (int[] fila : matriz) {
             System.out.println("     " + Arrays.toString(fila));
