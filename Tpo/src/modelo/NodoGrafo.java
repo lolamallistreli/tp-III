@@ -6,8 +6,8 @@ import java.util.List;
 
 public class NodoGrafo<T> implements INodoGrafo<T> {
     private T dato;
-    private List<INodoGrafo<T>> vecinos;
-    private List<Integer> pesos;
+    private final  List<INodoGrafo<T>> vecinos;
+    private final  List<Integer> pesos;
 
     public NodoGrafo(T dato) {
         this.dato = dato;

@@ -1,8 +1,8 @@
 package modelo;
 
 public class Persona {
-    private int dni;
-    private String nombre;
+    private final int dni;
+    private final String nombre;
 
     public Persona(int dni, String nombre) {
         this.dni = dni;

@@ -81,7 +81,7 @@ public class Kruskal {
         }
     }
     private static class UnionFind {
-        private int[] padre;
+        private final int[] padre;
 
         UnionFind(int n) {
             padre = new int[n];

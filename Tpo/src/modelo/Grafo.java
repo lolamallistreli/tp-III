@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Grafo<T> implements IGrafo<T> {
 
-	private Map<T, INodoGrafo<T>> nodos; 
+	private final Map<T, INodoGrafo<T>> nodos; 
 	private final boolean dirigido;
 
 	public Grafo(boolean dirigido) {
