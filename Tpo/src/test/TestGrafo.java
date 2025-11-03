@@ -59,9 +59,9 @@ public class TestGrafo {
         grafoDirigido.agregarNodo(p5); 
 
         // Valentina sigue a Morena
-        grafoDirigido.conectar(p1, p2);
-        grafoDirigido.conectar(p1, p3);
-        grafoDirigido.conectar(p2, p5);
+        grafoDirigido.conectar(p1, p2,7);
+        grafoDirigido.conectar(p1, p3,7);
+        grafoDirigido.conectar(p2, p5,7);
 
         //test DFS (Valentina)
         List<Persona> dfsDir = grafoDirigido.recorrerDFS(p1);

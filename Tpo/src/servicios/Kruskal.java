@@ -1,6 +1,6 @@
 package servicios;
-import estructuras.grafo.Grafo;
 
+import interfaces.INodoGrafo;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import interfaces.INodoGrafo; 
 import modelo.Grafo;
+
 
 public class Kruskal {
     public static <T> void ejecutar(Grafo<T> grafo) {

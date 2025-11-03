@@ -1,7 +1,7 @@
 package modelo;
-import java.util.*;
 import interfaces.IGrafo;
 import interfaces.INodoGrafo;
+import java.util.*;
 
 public class Grafo<T> implements IGrafo<T> {
 
@@ -35,15 +35,15 @@ public class Grafo<T> implements IGrafo<T> {
     }
 
     @Override
-    public void conectar(T datoOrigen, T datoDestino) {
+    public void conectar(T datoOrigen, T datoDestino,int peso) {
         INodoGrafo<T> origen = getNodo(datoOrigen);
         INodoGrafo<T> destino = getNodo(datoDestino);
 
         if (origen != null && destino != null) {
-            origen.agregarVecino(destino);
+            origen.agregarVecino(destino,peso);
             
             if (!dirigido) {
-                destino.agregarVecino(origen);
+                destino.agregarVecino(origen,peso);
             }
         }
     }

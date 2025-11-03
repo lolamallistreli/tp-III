@@ -10,7 +10,7 @@ public interface IGrafo<T> {
 
     Map<T, INodoGrafo<T>> getNodos();
 
-    void conectar(T datoOrigen, T datoDestino);
+    void conectar(T datoOrigen, T datoDestino,int peso);
 
     List<T> recorrerBFS(T datoInicio);
 

@@ -22,7 +22,7 @@ public interface INodoGrafo<T> {
      //POST: el nodo pasado como parametro queda agregado a la lista de vecinos, si no existia previamente.
      // AXIOMA: si antes no existia el vecino, despues de agregarlo,getVecinos().contains(nodo) == true.
 
-    void agregarVecino(INodoGrafo<T> nodo);
+    void agregarVecino(INodoGrafo<T> nodo,int peso);
 
     // PRE: el parametro nodo debe existir como vecino.
     //POST: el nodo queda eliminado de la lista de vecinos si estaba presente.
@@ -36,4 +36,7 @@ public interface INodoGrafo<T> {
      // AXIOMA: para todo nodo vecino n en getVecinos(), n es accesible directamente desde este nodo.
 
     List<INodoGrafo<T>> getVecinos();
+
+    List<Integer> getPesos();
+    
 }
