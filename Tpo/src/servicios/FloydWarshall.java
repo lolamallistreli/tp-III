@@ -54,7 +54,7 @@ public class FloydWarshall {
         //Mostrar matriz resultante
         System.out.println("\nMatriz de distancias minimas (FloydWarshall):");
         imprimirMatriz(dist, claves, INF);
-        
+        System.out.println("\nMatriz: FloydWarshall no calcula un costo total, sino todas las distancias minimas entre cada par de nodos del grafo.");
 
     }
 
