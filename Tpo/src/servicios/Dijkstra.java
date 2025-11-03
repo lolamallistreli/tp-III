@@ -1,24 +1,26 @@
 package servicios;
 
+import interfaces.INodoGrafo;
 import java.util.*;
-import interfaces.INodo;
 import modelo.Grafo;
-import modelo.Nodo;
 
 public class Dijkstra {
+
     public static <T> void ejecutar(Grafo<T> grafo, T origen) {
-        Map<T, Nodo<T>> nodos = grafo.getNodos();
-        if (nodos == null || nodos.isEmpty()) {
-            System.out.println("Grafo vacío.");
+
+        Map<T, INodoGrafo<T>> nodos = grafo.getNodos();
+
+        if (nodos == null || nodos.isEmpty() || !nodos.containsKey(origen)) {
+            System.out.println("Error: Grafo vacío o nodo origen " + origen + " no existe.");
             return;
         }
-        if (!nodos.containsKey(origen)) {
-            System.out.println("El nodo origen " + origen + " no existe.");
-            return;
-        }
+
+        
         Map<T, Integer> distancias = new HashMap<>();
+        Map<T, T> padre = new HashMap<>();
         Set<T> visitados = new HashSet<>();
         PriorityQueue<NodoDistancia<T>> cola = new PriorityQueue<>();
+
         for (T clave : nodos.keySet()) {
             distancias.put(clave, Integer.MAX_VALUE);
         }
@@ -37,19 +39,21 @@ public class Dijkstra {
 
             visitados.add(u);
 
-            Nodo<T> nodoU = nodos.get(u);
+            INodoGrafo<T> nodoU = nodos.get(u);
             if (nodoU == null) continue;
 
-            List<INodo<T>> vecinos = nodoU.getVecinos();
-            List<Integer> pesos     = nodoU.getPesos();
+            List<INodoGrafo<T>> vecinos = nodoU.getVecinos();
+            List<Integer> pesos    = nodoU.getPesos();
 
             int m = Math.min(vecinos.size(), pesos.size());
             for (int i = 0; i < m; i++) {
-                T v    = vecinos.get(i).getValor();
+                T v    = vecinos.get(i).getDato();
                 int w  = pesos.get(i);
                 int nv = distU + w;
+
                 if (nv < distancias.get(v)) {
                     distancias.put(v, nv);
+                    padre.put(v, u);
                     cola.add(new NodoDistancia<>(v, nv));
                 }
             }
@@ -70,6 +74,8 @@ public class Dijkstra {
         final T id;
         final int distancia;
         NodoDistancia(T id, int distancia) { this.id = id; this.distancia = distancia; }
-        @Override public int compareTo(NodoDistancia<T> o) { return Integer.compare(this.distancia, o.distancia); }
+        
+        @Override 
+        public int compareTo(NodoDistancia<T> o) { return Integer.compare(this.distancia, o.distancia); }
     }
 }

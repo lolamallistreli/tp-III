@@ -1,15 +1,13 @@
 package test;
 
+import interfaces.IGrafo;
 import java.util.Arrays;
 import java.util.List;
-
-import interfaces.IGrafo;
 import modelo.Grafo;
 import modelo.Persona;
-//import servicios.Dijkstra;
+import servicios.Dijkstra;
 import servicios.FloydWarshall;
 import servicios.Kruskal;
-//import servicios.Kruskal;
 import servicios.Prim;
 
 
@@ -31,13 +29,16 @@ public class TestGrafo {
         grafoNoDirigido.agregarNodo(p2);
         grafoNoDirigido.agregarNodo(p3);
         grafoNoDirigido.agregarNodo(p4);
+        grafoNoDirigido.agregarNodo(p5);
 
         ///Conexiones: p1<->p2 (Valentina<->Morena), p2<->p3, p1<->p4
-        grafoNoDirigido.conectar(p1, p2); 
-        grafoNoDirigido.conectar(p2, p3); 
-        grafoNoDirigido.conectar(p1, p4); 
+        grafoNoDirigido.conectar(p1, p2, 7); 
+        grafoNoDirigido.conectar(p2, p3,7); 
+        grafoNoDirigido.conectar(p1, p4,5); 
+        grafoNoDirigido.conectar(p4, p5,4);
+        grafoNoDirigido.conectar(p3, p5,6);
 
-        ///Test DFS (Valentina)
+        ///Test 
         List<Persona> dfsNoDir = grafoNoDirigido.recorrerDFS(p1);
         System.out.println("  1. DFS (Valentina): " + dfsNoDir);
 
@@ -77,32 +78,22 @@ public class TestGrafo {
     
         //ALGORITMOS
         System.out.println("\n--- ALGORITMOS ---");
+
         System.out.println("Algoritmo FloydWarshall sobre el grafo no dirigido:");///FloydWarshall
         FloydWarshall.ejecutar(grafoNoDirigido);
 
         System.out.println("Algoritmo Prim sobre el grafo no dirigido:"); ///Prim
         Prim<Persona> prim = new Prim<>((Grafo<Persona>)grafoNoDirigido);
-        prim.setPeso(p1, p2, 3);
-        prim.setPeso(p1, p4, 2);
-        prim.setPeso(p2, p3, 4);
         prim.ejecutarPrim(p1);
 
         System.out.println("Algoritmo Kruskal sobre el grafo no dirigido:");///Kruskal
         Kruskal.ejecutar((Grafo<Persona>) grafoNoDirigido);
+
+        System.out.println("Algoritmo Dijkstra sobre el grafo no dirigido:");///Dijkstra
+        Dijkstra.ejecutar((Grafo<Persona>) grafoNoDirigido, p1);
     }
 
 
-        /* 
-        System.out.println("\n--- ALGORITMOS ---");
-        System.out.println("Algoritmo Kruskal sobre el grafo no dirigido:");
-        FloydWarshall.ejecutar(grafoNoDirigido);
-
-        System.out.println("\n--- ALGORITMOS ---");
-        System.out.println("Algoritmo Dijkstra sobre el grafo no dirigido:");
-        FloydWarshall.ejecutar(grafoNoDirigido);
-        System.out.println("\n--- ALGORITMOS ---");
-        System.out.println("Algoritmo Dijkstra sobre el grafo no dirigido:");
-        FloydWarshall.ejecutar(grafoNoDirigido);*/
 
         
     public static void imprimirMatriz(int[][] matriz) {

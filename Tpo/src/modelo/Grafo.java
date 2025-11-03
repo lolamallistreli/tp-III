@@ -35,6 +35,11 @@ public class Grafo<T> implements IGrafo<T> {
     }
 
     @Override
+    public boolean esDirigido() {
+        return dirigido;
+    }
+
+    @Override
     public void conectar(T datoOrigen, T datoDestino,int peso) {
         INodoGrafo<T> origen = getNodo(datoOrigen);
         INodoGrafo<T> destino = getNodo(datoDestino);

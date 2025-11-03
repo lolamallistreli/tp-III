@@ -19,4 +19,6 @@ public interface IGrafo<T> {
 
     
     int[][] obtenerMatrizAdyacencia();
+
+    boolean esDirigido();
 }
