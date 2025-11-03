@@ -81,13 +81,16 @@ public class TestGrafo {
 
         System.out.println("Algoritmo FloydWarshall sobre el grafo no dirigido:");///FloydWarshall
         FloydWarshall.ejecutar(grafoNoDirigido);
-
+        System.out.println();
+        
         System.out.println("Algoritmo Prim sobre el grafo no dirigido:"); ///Prim
         Prim<Persona> prim = new Prim<>((Grafo<Persona>)grafoNoDirigido);
         prim.ejecutarPrim(p1);
+        System.out.println();
 
         System.out.println("Algoritmo Kruskal sobre el grafo no dirigido:");///Kruskal
         Kruskal.ejecutar((Grafo<Persona>) grafoNoDirigido);
+        System.out.println();
 
         System.out.println("Algoritmo Dijkstra sobre el grafo no dirigido:");///Dijkstra
         Dijkstra.ejecutar((Grafo<Persona>) grafoNoDirigido, p1);
